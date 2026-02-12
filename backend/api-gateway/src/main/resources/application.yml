@@ -1,0 +1,111 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        # Public auth endpoints - NO JWT filter
+        - id: user-auth
+          uri: lb://USER-SERVICE 
+          predicates:
+            - Path=/api/auth/**
+          # NO filters - public access
+          
+        # Protected user endpoints - WITH JWT filter
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/api/users/**
+          filters:
+            - name: JwtAuthenticationFilter
+            
+        - id: stock-service
+          uri: lb://STOCK-SERVICE
+          predicates:
+            - Path=/api/stocks/**
+          filters:
+            - name: JwtAuthenticationFilter
+            
+        - id: order-service
+          uri: lb://ORDER-SERVICE
+          predicates:
+            - Path=/api/orders/**
+          filters:
+            - name: JwtAuthenticationFilter
+            
+        - id: transaction-service
+          uri: lb://TRANSACTION-SERVICE
+          predicates:
+            - Path=/api/blockchain/**
+          filters:
+            - name: JwtAuthenticationFilter
+            
+        - id: portfolio-service
+          uri: lb://PORTFOLIO-SERVICE
+          predicates:
+            - Path=/api/portfolio/**
+          filters:
+            - name: JwtAuthenticationFilter
+            
+        - id: notification-service
+          uri: lb://NOTIFICATION-SERVICE
+          predicates:
+            - Path=/api/notifications/**, /ws/**
+            
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOriginPatterns: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders: "*"
+            allowCredentials: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+jwt:
+  secret: your-secret-key-change-in-production-min-256-bits
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      user-service:
+        registerHealthIndicator: true
+        slidingWindowSize: 10
+      stock-service:
+        registerHealthIndicator: true
+        slidingWindowSize: 10
+      order-service:
+        registerHealthIndicator: true
+        slidingWindowSize: 10
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus,gateway
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+
+---
+spring:
+  config:
+    activate:
+      on-profile: docker
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka:8761/eureka/
