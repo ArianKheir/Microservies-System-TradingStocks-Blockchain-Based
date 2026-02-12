@@ -1,0 +1,55 @@
+.stock-detail {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.stock-detail a {
+  color: #667eea;
+  text-decoration: none;
+  margin-bottom: 1rem;
+  display: inline-block;
+}
+
+.stock-detail h2 {
+  margin: 1rem 0;
+  color: #2c3e50;
+}
+
+.stock-info {
+  margin: 2rem 0;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.info-item label {
+  font-weight: 600;
+  color: #555;
+}
+
+.info-item .price {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #27ae60;
+}
+
+.trade-button {
+  display: inline-block;
+  padding: 1rem 2rem;
+  background: #667eea;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  margin-top: 1rem;
+}
+
+.trade-button:hover {
+  background: #5568d3;
+}
+

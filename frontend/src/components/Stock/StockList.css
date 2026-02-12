@@ -1,0 +1,43 @@
+.stock-list {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.stock-list h2 {
+  margin-bottom: 1.5rem;
+  color: #2c3e50;
+}
+
+.stock-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.stock-table th,
+.stock-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.stock-table th {
+  background: #f8f9fa;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.stock-table tr:hover {
+  background: #f8f9fa;
+}
+
+.stock-table a {
+  color: #667eea;
+  text-decoration: none;
+}
+
+.stock-table a:hover {
+  text-decoration: underline;
+}
+
